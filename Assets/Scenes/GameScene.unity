@@ -597,9 +597,24 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 1969586393}
+    - target: {fileID: 114098444362260644, guid: 8ae1adc530987064da508c911105495f,
+        type: 2}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1969586387}
+    - target: {fileID: 114098444362260644, guid: 8ae1adc530987064da508c911105495f,
+        type: 2}
+      propertyPath: platformCameraOffset.y
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ae1adc530987064da508c911105495f, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1969586387 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1300020332955560, guid: d4314d6069a5d7a46a498e409e4443ac,
+    type: 2}
+  m_PrefabInternal: {fileID: 1400879217}
 --- !u!4 &1969586393 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4753661656753544, guid: d4314d6069a5d7a46a498e409e4443ac,

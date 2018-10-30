@@ -104,3 +104,5 @@ MonoBehaviour:
   phase: 0
   tunnelCameraOffset: 5
   platformCameraOffset: {x: 0, y: 10, z: 0}
+  angleStep: 0.5
+  rotationLimit: 20

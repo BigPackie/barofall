@@ -605,6 +605,16 @@ Prefab:
     - target: {fileID: 114098444362260644, guid: 8ae1adc530987064da508c911105495f,
         type: 2}
       propertyPath: platformCameraOffset.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114098444362260644, guid: 8ae1adc530987064da508c911105495f,
+        type: 2}
+      propertyPath: angleStep
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114098444362260644, guid: 8ae1adc530987064da508c911105495f,
+        type: 2}
+      propertyPath: rotationLimit
       value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []

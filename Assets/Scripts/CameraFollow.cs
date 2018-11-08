@@ -7,9 +7,9 @@ public class CameraFollow : MonoBehaviour
 
     public Transform target;
 
-    public Game.LevelPhase phase = Game.LevelPhase.PLATFORM;
+   // public Game.LevelPhase phase = Game.LevelPhase.PLATFORM;
 
-    public float tunnelCameraOffset = 5f;
+  
     public Vector3 platformCameraOffset = new Vector3(0, 10f, 0);
    
 
@@ -44,16 +44,8 @@ public class CameraFollow : MonoBehaviour
     }
 
     private void LateUpdate()
-    {
-        if (phase == Game.LevelPhase.PLATFORM)
-        {
-            Platform();
-        }
-        else if (phase == Game.LevelPhase.TUNNEL)
-        {
-            Tunnel();
-        }
-
+    {  
+       Platform();
     }
 
     void Platform()
@@ -91,13 +83,7 @@ public class CameraFollow : MonoBehaviour
     }
 
 
-    void Tunnel()
-    {
-        if (target == null) return;
-
-        var cameraAdjustVector = new Vector3(transform.position.x, target.position.y + tunnelCameraOffset, transform.position.z);
-        transform.position = cameraAdjustVector;
-    }
+ 
 
 
     public void SetCameraStartingPosition(Vector3 position)

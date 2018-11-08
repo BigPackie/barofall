@@ -85,6 +85,14 @@ public class Player : MonoBehaviour {
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("CameraTrigger"))
+        {
+
+        }
+    }
+
     private void Controll()
     {
         //TODO make check based on platform (mobile, PC)

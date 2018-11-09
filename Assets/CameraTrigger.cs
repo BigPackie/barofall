@@ -6,6 +6,8 @@ public class CameraTrigger : MonoBehaviour {
 
     public CameraController cameraController;
 
+    public Game.LevelPhase nextPhase;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -15,6 +17,7 @@ public class CameraTrigger : MonoBehaviour {
     {
         if (other.CompareTag("Player")){
             cameraController.SwitchCamera();
+
         }
     }
 

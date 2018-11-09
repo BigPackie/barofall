@@ -81,14 +81,4 @@ public class CameraFollow : MonoBehaviour
         }
        
     }
-
-
- 
-
-
-    public void SetCameraStartingPosition(Vector3 position)
-    {
-        //TODO: invoke this method based on a trigger for each level phase. Basically get the starting position of level phase
-        //and adjust the starting postion of the camare for each phase.
-    }
 }

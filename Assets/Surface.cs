@@ -25,13 +25,8 @@ public class Surface : MonoBehaviour {
     public Type type = Type.Metal;
     public float drag { get; private set; }
 
-    Renderer rend;
-
-
 	// Use this for initialization
 	void Start () {
-
-        rend = GetComponent<Renderer>();
 
         switch (type){
             case (Type.Metal):

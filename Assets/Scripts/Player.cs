@@ -5,14 +5,27 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     Rigidbody rb;
-    public float speed = 5f;
+    Renderer renderer;
+
+    public Material opaque;
+    public Material fade;
+
+    float turnSpeed = 5f;
+    Color color;
+
+    public float rollTurnSpeed = 5f;
+    public float fallTurnSpeed = 50f;
 
     //this drag is used to simulate friction on platform surfaces
     public float ballDrag = 0.2f;
 
 	// Use this for initialization
 	void Start () {
+        turnSpeed = rollTurnSpeed;
         rb = GetComponent<Rigidbody>();
+        renderer = GetComponent<Renderer>();
+        color = renderer.material.color;
+    
         rb.drag = ballDrag;
         rb.angularDrag = ballDrag;
 	}
@@ -71,7 +84,7 @@ public class Player : MonoBehaviour {
 
             foreach (ContactPoint contact in collision.contacts)
             {
-                Debug.DrawRay(contact.point, contact.normal * 10, Color.white);
+              //  Debug.DrawRay(contact.point, contact.normal * 10, Color.white);
             }
 
             var surface = collision.gameObject.GetComponent<Surface>();
@@ -87,8 +100,24 @@ public class Player : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        //TODO: CameraTrigger is maybe not the best name for this
         if (other.gameObject.CompareTag("CameraTrigger"))
         {
+            if(other.gameObject.GetComponent<CameraTrigger>().nextPhase == Game.LevelPhase.TUNNEL)
+            {
+                Debug.Log("Setting fallspeed");
+                turnSpeed = fallTurnSpeed;
+
+                renderer.material = fade;
+            }
+
+            if (other.gameObject.GetComponent<CameraTrigger>().nextPhase == Game.LevelPhase.PLATFORM)
+            {
+                Debug.Log("Setting rollSpeed");
+                turnSpeed = rollTurnSpeed;
+
+                renderer.material = opaque;
+            }
 
         }
     }
@@ -97,8 +126,8 @@ public class Player : MonoBehaviour {
     {
         //TODO make check based on platform (mobile, PC)
 
-        float moveHorizontal = Input.GetAxis("Horizontal") * speed;
-        float moveVertical = Input.GetAxis("Vertical") * speed;
+        float moveHorizontal = Input.GetAxis("Horizontal") * turnSpeed;
+        float moveVertical = Input.GetAxis("Vertical") * turnSpeed;
 
         rb.AddForce(new Vector3(moveHorizontal, 0, moveVertical),ForceMode.Force);
 

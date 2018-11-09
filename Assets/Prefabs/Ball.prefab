@@ -112,7 +112,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8348dae69440813438f6f24cef7fbc56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  opaque: {fileID: 2100000, guid: 49f10830d9cef3b4490ebdeb4ebb45d2, type: 2}
+  fade: {fileID: 2100000, guid: 1aae3e835aea4414abe6b545a3eec520, type: 2}
+  rollTurnSpeed: 20
+  fallTurnSpeed: 80
   ballDrag: 0.2
 --- !u!135 &135656434622575214
 SphereCollider:

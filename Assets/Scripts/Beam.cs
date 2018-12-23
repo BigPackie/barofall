@@ -32,6 +32,11 @@ public class Beam : MonoBehaviour {
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            if (other.gameObject.GetComponent<Player>().beamImmune)
+            {
+                return;
+            }
+
             other.gameObject.GetComponent<Rigidbody>().AddForce(transform.up * force, ForceMode.Force); //up is forward for the beam
         }
     }

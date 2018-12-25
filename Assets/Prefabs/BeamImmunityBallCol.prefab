@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 114319465434621992}
   - component: {fileID: 64759852694903684}
   - component: {fileID: 54089201500517856}
-  - component: {fileID: 114112230574661848}
   - component: {fileID: 114088424200054490}
   m_Layer: 0
   m_Name: BeamImmunityBallCol
@@ -128,17 +127,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ad63403f8598b41a3a18ed397108bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114112230574661848
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1073133251243074}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ff4127b655d95242ab75d1e4ead9cce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114319465434621992
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -151,3 +139,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 8
+  lable: Disco

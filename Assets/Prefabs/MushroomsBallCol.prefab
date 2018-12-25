@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration: 8
+  lable: Mushrooms
 --- !u!114 &114525772894330022
 MonoBehaviour:
   m_ObjectHideFlags: 1

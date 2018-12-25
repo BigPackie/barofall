@@ -93,6 +93,7 @@ public class Player : MonoBehaviour {
         {
             this.ResetDefaultState();
             Debug.Log("Effect Duration Over");
+            EventManager.TriggerEvent("effect"); //clear the hud 
         }
         else
         {
@@ -207,6 +208,8 @@ public class Player : MonoBehaviour {
         rb.AddForce(new Vector3(moveHorizontal, 0, moveVertical),ForceMode.Force);
 
     }
+
+  
 
 
   

@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour {
 
     public static Game instance;
 
+    public static bool paused = false; //the hole class static, this does not have to be anymore TODO: redo
+
     public enum LevelPhase { PLATFORM, TUNNEL };
 
+    private float timeScaleBeforePause = 1f; 
     public float timeSlowScale = 0.5f;
     public float levelTime = 0f;
     private int currentLevel = 0;
@@ -16,6 +20,11 @@ public class Game : MonoBehaviour {
     private float lastCheckpointTime = 0f;
     private GameObject lastCheckpoint;
 
+
+    private Game()
+    {
+
+    }
 
     private void Awake()
     {
@@ -93,8 +102,49 @@ public class Game : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        MenuControll();
+
 	}
 
+    /// <summary>
+    /// Use this methods through GUI as there are some gui elements depending on it
+    /// </summary>
+    public void Pause()
+    {
+        paused = true;
+        timeScaleBeforePause = Time.timeScale;
+        Time.timeScale = 0;
+    }
 
+    /// <summary>
+    /// Use this methods through GUI as there are some gui elements depending on it
+    /// </summary>
+    public void UnPause()
+    {
+        paused = false;
+        Time.timeScale = timeScaleBeforePause;
+    }
+
+    public void GoToMainMenu()
+    {
+        UnPause();
+        SceneManager.LoadScene(0);
+    }
+
+  
+    private void MenuControll()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Game.paused)
+            {
+                EventManager.TriggerEvent("continue");
+            }
+            else
+            {
+                EventManager.TriggerEvent("pause");
+            }
+        }
+    }
 
 }

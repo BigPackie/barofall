@@ -5,6 +5,7 @@ using UnityEngine;
 public class Collectible : MonoBehaviour {
 
     public float duration = 5f;
+    public string lable;
     Rigidbody rb;
 
     int rotX;
@@ -41,6 +42,7 @@ public class Collectible : MonoBehaviour {
         }
 
         other.gameObject.GetComponent<Player>().ActivateEffect(this.duration);
+        EventManager.TriggerEvent("effect", gameObject);
         Debug.Log("Destroying Collectible.");
         Destroy(gameObject);
         Debug.Log("Collectible destroyed.");

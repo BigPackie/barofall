@@ -106,12 +106,14 @@ public class GUI : MonoBehaviour {
     {
         Debug.Log("RestartLevel");
         Game.instance.RestartLastLevel();
+        this.OnContinue(go);
     }
 
     private void OnRestartFromCheckPoint(GameObject go)
     {
         Debug.Log("RestartFromCheckpoint");
         Game.instance.RestartFromCheckPoint();
+        this.OnContinue(go);
     }
 
     private void OnEffect(GameObject go)

@@ -43,7 +43,6 @@ public class Game : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        //maybe not needed as I only going to have 1 scene
         DontDestroyOnLoad(gameObject); // this is to preserve this isntance through different scenes
 
         InitGame();

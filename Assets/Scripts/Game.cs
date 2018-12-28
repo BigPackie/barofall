@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,18 +8,23 @@ public class Game : MonoBehaviour {
 
     public static Game instance;
 
+    public static Stack<Checkpoint> visitedCheckpoints = new Stack<Checkpoint>();
+
     public static bool paused = false; //the hole class static, this does not have to be anymore TODO: redo
 
     public enum LevelPhase { PLATFORM, TUNNEL };
+    public GameObject player;
 
     private float timeScaleBeforePause = 1f; 
     public float timeSlowScale = 0.5f;
-    public float levelTime = 0f;
-    private int currentLevel = 0;
+    public float levelTime { get; private set; }
+    public float totalTime { get; private set; } //saved only when finishing a level;
+    public int restarts { get; private set; }
+    public int currentLevel = 0;
     private float timeCounterMultiplier = 1f;
-    private GameObject levelStart;
-    private float lastCheckpointTime = 0f;
-    private GameObject lastCheckpoint;
+    //private GameObject levelStart;
+   // private float lastCheckpointTime = 0f;
+    //private GameObject lastCheckpoint;
 
 
     private Game()
@@ -96,7 +102,10 @@ public class Game : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        levelTime += ( Time.deltaTime * timeCounterMultiplier);
+        if(currentLevel > 0)
+        {
+            levelTime += (Time.deltaTime * timeCounterMultiplier);
+        }   
     }
 
 
@@ -147,4 +156,64 @@ public class Game : MonoBehaviour {
         }
     }
 
+    public void RestartFromCheckPoint()
+    {
+        if(visitedCheckpoints.Count > 0)
+        {
+            var lastCheckpoint = visitedCheckpoints.Peek();
+
+            this.RevertTime(lastCheckpoint);
+            this.MovePlayerToCheckpoint(lastCheckpoint);
+            restarts++;
+        }
+      
+    }
+
+    public void RestartLastLevel()
+    {
+        Checkpoint startCp;
+        while (visitedCheckpoints.Count > 0)
+        {
+            startCp = visitedCheckpoints.Peek();
+            if (startCp.isLevelStart)
+            {
+                this.RevertTime(startCp);
+                this.MovePlayerToCheckpoint(startCp);
+                break;
+            }
+            else
+            {
+                startCp.ResetCheckpoint();
+                visitedCheckpoints.Pop();
+            }
+        }
+        restarts++;
+    }
+
+    private void RevertTime(Checkpoint cp)
+    {
+        if (cp.isLevelStart)
+        {
+            this.levelTime = 0f; //because levels start end level end is same checopint, and I remeber the last current level timestamp at this
+        }
+        else
+        {
+            this.levelTime = cp.levelTimeStamp;
+        }
+
+    }
+
+    public void MovePlayerToCheckpoint(Checkpoint cp)
+    {
+        this.player.transform.position = cp.transform.position + cp.spawnOffset;
+        this.player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
+
+
+    public void NewLevel(int lvl)
+    {
+        this.currentLevel = lvl;
+        this.totalTime += this.levelTime;
+        this.levelTime = 0f;
+    }
 }

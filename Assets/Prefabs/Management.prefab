@@ -63,4 +63,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e9d0ba16b1c12444a3f77336902d4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelTime: 0
+  player: {fileID: 0}
+  timeSlowScale: 0.5

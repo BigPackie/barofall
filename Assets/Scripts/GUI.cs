@@ -12,8 +12,13 @@ public class GUI : MonoBehaviour {
     //gui components
     public Text totalTime;
     public Text effect;
+    public Text scoreLevel;
+    public Text scoreRestarts;
+    public Text scoreLevelTime;
+    public Text scoreTotalTime;
     public GameObject pauseMenu;
     public GameObject pauseButton;
+    public GameObject hud;
     //gui components end
 
 
@@ -34,6 +39,7 @@ public class GUI : MonoBehaviour {
         EventManager.StartListening("restartLevel", OnRestartLevel);
         EventManager.StartListening("mainMenu", OnMainMenu);
         EventManager.StartListening("effect", OnEffect);
+        EventManager.StartListening("OnLevelStart", OnLevelChange);
     }
 
 
@@ -46,6 +52,7 @@ public class GUI : MonoBehaviour {
         EventManager.StopListening("restartLevel", OnRestartLevel);
         EventManager.StopListening("mainMenu", OnMainMenu);
         EventManager.StopListening("effect", OnEffect);
+        EventManager.StopListening("OnLevelChange", OnLevelChange);
 
     }
 
@@ -75,6 +82,8 @@ public class GUI : MonoBehaviour {
         Debug.Log("Pause");     
         pauseMenu.SetActive(true);
         pauseButton.SetActive(false);
+        hud.SetActive(false);
+        RefreshScore();
         Game.instance.Pause();
     }
 
@@ -83,6 +92,7 @@ public class GUI : MonoBehaviour {
         Debug.Log("UnPause");      
         pauseMenu.SetActive(false);
         pauseButton.SetActive(true);
+        hud.SetActive(true);
         Game.instance.UnPause();
     }
 
@@ -95,11 +105,13 @@ public class GUI : MonoBehaviour {
     private void OnRestartLevel(GameObject go)
     {
         Debug.Log("RestartLevel");
+        Game.instance.RestartLastLevel();
     }
 
     private void OnRestartFromCheckPoint(GameObject go)
     {
         Debug.Log("RestartFromCheckpoint");
+        Game.instance.RestartFromCheckPoint();
     }
 
     private void OnEffect(GameObject go)
@@ -113,6 +125,20 @@ public class GUI : MonoBehaviour {
             effect.text = go.GetComponent<Collectible>().lable;
         }
         
+    }
+
+    private void OnLevelChange(GameObject go)
+    {
+        //
+
+    }
+
+    private void RefreshScore()
+    {
+        scoreLevelTime.text = Game.instance.levelTime.ToString("00:00.00");
+        scoreTotalTime.text = (Game.instance.totalTime + Game.instance.levelTime).ToString("00:00.00"); //actual total time;
+        scoreLevel.text = "Level " + Game.instance.currentLevel;
+        scoreRestarts.text = Game.instance.restarts.ToString();
     }
 
 }

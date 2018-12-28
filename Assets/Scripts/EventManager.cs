@@ -8,7 +8,6 @@ public class GameObjectEvent : UnityEvent<GameObject> {
 
 }
 
-
 //inspired by https://unity3d.com/learn/tutorials/topics/scripting/events-creating-simple-messaging-system
 public class EventManager : MonoBehaviour
 {

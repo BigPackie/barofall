@@ -8,8 +8,11 @@ public class TunnelCamera : MonoBehaviour {
     public Transform target;
     // Use this for initialization
     void Start () {
-        transform.position = target.position;
-	}
+        if (!target)
+        {
+            target = GameObject.FindWithTag("Player").transform;
+        }
+    }
 	
 	// Update is called once per frame
 	void Update () {

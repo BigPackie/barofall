@@ -65,3 +65,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   timeSlowScale: 0.5
+  currentLevel: 0

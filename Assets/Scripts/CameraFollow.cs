@@ -30,6 +30,10 @@ public class CameraFollow : MonoBehaviour
     {
         orbitPositionOffset = platformCameraOffset;
         defaultRotation = transform.rotation;
+        if (!target)
+        {
+            target = GameObject.FindWithTag("Player").transform;
+        }
     }
 
     // Update is called once per frame

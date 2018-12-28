@@ -5,6 +5,7 @@ using UnityEngine;
 
 //3D mesh model by sirkitree https://sketchfab.com/models/2d4f7dde4bda4987960f73a8a711ace7
 
+[System.Serializable]
 public class Player : MonoBehaviour {
 
     public Rigidbody rb;
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Game.instance.player = gameObject;
         turnSpeed = rollTurnSpeed;
         rb = GetComponent<Rigidbody>();
         renderer = GetComponent<Renderer>();

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Checkpoint : MonoBehaviour {
 
     public bool isLevelStart;
     public bool isLevelEnd; //if end show scoreboard (basically pause menu)
     public bool visited = false; // when already visited, and we do restart from this checkpoint, we don't trigger some things.
-    public Vector3 spawnOffset = new Vector3(0,2f,0);
+    public Vector3 spawnOffset = new Vector3(0, 2f, 0);
     public float levelTimeStamp { get; private set; }
     public int level; //current or starting level,  end checkpoint of one level is also the start checkpoint of the next, in this case level nubmer represents the next level
 

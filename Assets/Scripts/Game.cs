@@ -10,10 +10,11 @@ public class Game : MonoBehaviour {
 
     public static Stack<Checkpoint> visitedCheckpoints = new Stack<Checkpoint>();
 
-    public static bool paused = false; //the hole class static, this does not have to be anymore TODO: redo
+    public bool paused = false; 
 
     public enum LevelPhase { PLATFORM, TUNNEL };
     public GameObject player;
+    public Vector3 startPosition = new Vector3(0, 2, 0);
 
     private float timeScaleBeforePause = 1f; 
     public float timeSlowScale = 0.5f;
@@ -45,7 +46,7 @@ public class Game : MonoBehaviour {
 
         DontDestroyOnLoad(gameObject); // this is to preserve this isntance through different scenes
 
-        InitGame();
+       //InitGame();
     }
 
     private void OnEnable()
@@ -88,10 +89,21 @@ public class Game : MonoBehaviour {
     }
 
     //getting references here
-    void InitGame()
+    public void InitGame()
     {
         Debug.Log("starting the game");
+        // player = Instantiate(playerPrefab);
+        //player = GameObject.FindWithTag("Player");
+        //reset everything for new game
         EventManager.TriggerEvent("gameStart");
+    }
+
+    public void ContinueGame() {
+        Debug.Log("Continue the game");
+        //player = Instantiate(playerPrefab);
+        //player = GameObject.FindWithTag("Player");
+        //move the player to last checkpoint
+        EventManager.TriggerEvent("gameContinue");
     }
 
     // Use this for initialization
@@ -144,7 +156,7 @@ public class Game : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (Game.paused)
+            if (paused)
             {
                 EventManager.TriggerEvent("continue");
             }

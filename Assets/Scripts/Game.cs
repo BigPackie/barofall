@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
 
 public class Game : MonoBehaviour {
 
     public static Game instance;
 
-    public static Stack<Checkpoint> visitedCheckpoints = new Stack<Checkpoint>();
+    public Stack<Checkpoint> visitedCheckpoints = new Stack<Checkpoint>();
 
     public bool paused = false; 
 
@@ -24,9 +24,10 @@ public class Game : MonoBehaviour {
     public int currentLevel = 0;
     private float timeCounterMultiplier = 1f;
     //private GameObject levelStart;
-   // private float lastCheckpointTime = 0f;
+    // private float lastCheckpointTime = 0f;
     //private GameObject lastCheckpoint;
 
+    public GameState gameState = null;
 
     private Game()
     {
@@ -35,18 +36,34 @@ public class Game : MonoBehaviour {
 
     private void Awake()
     {
-        if(instance == null)
+        /*
+        if(instance != null)
         {
-            instance = this;
+            Destroy(gameObject);
+            
         }
         else
         {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // this is to preserve this isntance through different scenes
+        }
+        */
+
+
+        if(instance != null)
+        {        
             Destroy(gameObject);
         }
+        else
+        {
+            instance = this;
+        }
 
-        DontDestroyOnLoad(gameObject); // this is to preserve this isntance through different scenes
+    }
 
-       //InitGame();
+    private void OnDestroy()
+    {
+        //this.SaveGameState();
     }
 
     private void OnEnable()
@@ -55,6 +72,25 @@ public class Game : MonoBehaviour {
         EventManager.StartListening("speed", OnSpeed);
         EventManager.StartListening("speedReset", OnSpeedReset);
     }
+
+    // Use this for initialization
+    void Start()
+    {
+        //this is needed in the Main Menu Scene
+        if (SceneState.continueGame)
+        {
+            SceneState.continueGame = false;
+            this.ContinueGame();
+        }
+        
+        if (SceneState.newGame)
+        {
+            SceneState.newGame = false;
+            this.NewGame();
+        }
+
+    }
+
 
     private void OnTimeSlow(GameObject go)
     {
@@ -89,27 +125,27 @@ public class Game : MonoBehaviour {
     }
 
     //getting references here
-    public void InitGame()
+    private void NewGame()
     {
-        Debug.Log("starting the game");
-        // player = Instantiate(playerPrefab);
-        //player = GameObject.FindWithTag("Player");
+        Debug.Log("Starting new game");
         //reset everything for new game
+        this.gameState = null;
         EventManager.TriggerEvent("gameStart");
+        this.removeGameState();
     }
 
-    public void ContinueGame() {
+    private void ContinueGame()
+    {
         Debug.Log("Continue the game");
         //player = Instantiate(playerPrefab);
         //player = GameObject.FindWithTag("Player");
         //move the player to last checkpoint
         EventManager.TriggerEvent("gameContinue");
+        this.LoadGameState();
+        RestartFromCheckPoint();
     }
 
-    // Use this for initialization
-    void Start () {
-		
-	}
+
 
     private void FixedUpdate()
     {
@@ -169,39 +205,27 @@ public class Game : MonoBehaviour {
 
     public void RestartFromCheckPoint()
     {
-        if(visitedCheckpoints.Count > 0)
+        if(gameState != null && gameState.lastCheckpoint != null)
         {
-            var lastCheckpoint = visitedCheckpoints.Peek();
-
-            this.RevertTime(lastCheckpoint);
-            this.MovePlayerToCheckpoint(lastCheckpoint);
+            this.RevertTime(gameState.lastCheckpoint);
+            this.MovePlayerToCheckpoint(gameState.lastCheckpoint);
             restarts++;
-        }
-      
+        }    
     }
 
     public void RestartLastLevel()
     {
-        Checkpoint startCp;
-        while (visitedCheckpoints.Count > 0)
+       
+        if (gameState != null  && gameState.lastLevelCheckpoint != null)
         {
-            startCp = visitedCheckpoints.Peek();
-            if (startCp.isLevelStart)
-            {
-                this.RevertTime(startCp);
-                this.MovePlayerToCheckpoint(startCp);
-                break;
-            }
-            else
-            {
-                startCp.ResetCheckpoint();
-                visitedCheckpoints.Pop();
-            }
-        }
-        restarts++;
+            this.RevertTime(gameState.lastLevelCheckpoint);
+            this.MovePlayerToCheckpoint(gameState.lastLevelCheckpoint);
+            restarts++;
+        }       
+        
     }
 
-    private void RevertTime(Checkpoint cp)
+    private void RevertTime(CheckpointState cp)
     {
         if (cp.isLevelStart)
         {
@@ -214,9 +238,9 @@ public class Game : MonoBehaviour {
 
     }
 
-    public void MovePlayerToCheckpoint(Checkpoint cp)
+    public void MovePlayerToCheckpoint(CheckpointState cp)
     {
-        this.player.transform.position = cp.transform.position + cp.spawnOffset;
+        this.player.transform.position = new Vector3(cp.position.x + cp.spawnOffset.x, cp.position.y + cp.spawnOffset.y, cp.position.z + cp.spawnOffset.z); 
         this.player.GetComponent<Rigidbody>().velocity = Vector3.zero;
     }
 
@@ -227,4 +251,107 @@ public class Game : MonoBehaviour {
         this.totalTime += this.levelTime;
         this.levelTime = 0f;
     }
+
+
+    public void SaveGameState()
+    {
+
+        Debug.Log("Saving game state");
+        var gs = new GameState();
+
+        //saving checkpoints
+        Checkpoint lastCheckpoint = visitedCheckpoints.Peek();
+        if(lastCheckpoint != null)
+        {
+            var cp = new CheckpointState();
+            cp.levelTimeStamp = lastCheckpoint.levelTimeStamp;
+            cp.position.x = lastCheckpoint.transform.position.x;
+            cp.position.y = lastCheckpoint.transform.position.y;
+            cp.position.z = lastCheckpoint.transform.position.z;
+            cp.spawnOffset.x = lastCheckpoint.spawnOffset.x;
+            cp.spawnOffset.y = lastCheckpoint.spawnOffset.y;
+            cp.spawnOffset.z = lastCheckpoint.spawnOffset.z;
+            cp.isLevelStart = lastCheckpoint.isLevelStart;
+            gs.lastCheckpoint = cp;
+        }
+
+       
+
+        Checkpoint lastLevelCheckpoint = null;
+
+        List<Checkpoint> list = new List<Checkpoint>(visitedCheckpoints);
+        //list.Reverse();
+
+         foreach (var cp in list) {
+            if (cp.isLevelStart) {
+                lastLevelCheckpoint = cp;
+                break;
+            }
+         }
+         
+        if(lastLevelCheckpoint != null)
+        {
+            var cp = new CheckpointState();
+            cp.levelTimeStamp = lastLevelCheckpoint.levelTimeStamp;
+            cp.position.x = lastLevelCheckpoint.transform.position.x;
+            cp.position.y = lastLevelCheckpoint.transform.position.y;
+            cp.position.z = lastLevelCheckpoint.transform.position.z;
+            cp.spawnOffset.x = lastLevelCheckpoint.spawnOffset.x;
+            cp.spawnOffset.y = lastLevelCheckpoint.spawnOffset.y;
+            cp.spawnOffset.z = lastLevelCheckpoint.spawnOffset.z;
+            cp.isLevelStart = lastLevelCheckpoint.isLevelStart;
+            gs.lastLevelCheckpoint = cp;
+        }
+
+        gameState = Persistance.Merge(gs);
+        Persistance.Save(gameState);
+    }
+
+    public void LoadGameState()
+    {
+        Debug.Log("Loading game state.");
+        var gs = Persistance.Load();
+
+        if (gs == null)
+        {
+            Debug.Log("No game state to load.");
+            return;
+        }
+
+        this.gameState = gs;
+
+    }
+
+    void removeGameState()
+    {
+        Debug.Log("Deleting game state.");
+        this.gameState = null;
+        Persistance.Remove();        
+    }
+
 }
+
+[System.Serializable]
+public class GameState
+{
+    //public List<CheckpointState> visitedCheckpoints = new List<CheckpointState>();
+    public CheckpointState lastLevelCheckpoint = null;
+    public CheckpointState lastCheckpoint = null;
+
+}
+
+[System.Serializable]
+public class CheckpointState
+{
+    public bool isLevelStart;
+    public float levelTimeStamp;
+    public Vector3Ser spawnOffset = new Vector3Ser();
+    public Vector3Ser position = new Vector3Ser();
+}
+
+[System.Serializable]
+public class Vector3Ser
+{
+    public float x, y, z;
+}
+

@@ -102,6 +102,8 @@ public class GUI : MonoBehaviour {
         Game.instance.GoToMainMenu();
     }
 
+    //maybe we can do the same way as continue from main menu, which mean realoading the scene
+    //if we do it that way the collectibles are reset too, which is good;
     private void OnRestartLevel(GameObject go)
     {
         Debug.Log("RestartLevel");

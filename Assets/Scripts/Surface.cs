@@ -43,7 +43,7 @@ public class Surface : MonoBehaviour {
                 break;
         }
 
-        Debug.Log("Surface drag:" + drag);
+       // Debug.Log("Surface drag:" + drag);
 	}
 
     // Update is called once per frame

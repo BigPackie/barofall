@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+
 public class Checkpoint : MonoBehaviour {
 
     public bool isLevelStart;
@@ -45,7 +45,9 @@ public class Checkpoint : MonoBehaviour {
         this.levelTimeStamp = Game.instance.levelTime;
         this.visited = true;
 
-        Game.visitedCheckpoints.Push(this);
+        Game.instance.visitedCheckpoints.Push(this);
+        Game.instance.SaveGameState(); //savign state on every checkpoint reached 
+
         if (isLevelStart)
         {
             EventManager.TriggerEvent("OnLevelChange");

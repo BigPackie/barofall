@@ -142,7 +142,7 @@ public class GUI : MonoBehaviour {
         scoreLevelTime.text = actualLevelTime.text;
         scoreTotalTime.text = (Game.instance.gameState.totalTime + Game.instance.levelTime).ToString("00:00.00"); //actual total time;
         scoreLevel.text = "Level " + Game.instance.gameState.currentLevel;
-        scoreRestarts.text = Game.instance.restarts.ToString();
+        scoreRestarts.text = Game.instance.gameState.restarts.ToString();
     }
 
 }

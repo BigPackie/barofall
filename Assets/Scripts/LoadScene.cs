@@ -6,8 +6,26 @@ using UnityEngine.SceneManagement;
 public class LoadScene : MonoBehaviour {
 
     //scene indexes can be seen in the build setting menu
-	public void LoadSceneByIndex(int index)
+
+    public void ContinueGame()
     {
-        SceneManager.LoadScene(index);
+        SceneState.instance.continueGame = true;
+        SceneState.instance.ignoreFirstCheckpoint = true;
+        SceneManager.LoadScene(1);
+    }
+
+    public void NewGame()
+    {
+        SceneState.instance.newGame = true;
+        SceneState.instance.ignoreFirstCheckpoint = false;
+        SceneManager.LoadScene(1);
+    }
+
+    public void MainMenu()
+    {
+        SceneState.instance.newGame = false;
+        SceneState.instance.continueGame = false;
+        SceneState.instance.ignoreFirstCheckpoint = false;
+        SceneManager.LoadScene(0);
     }
 }

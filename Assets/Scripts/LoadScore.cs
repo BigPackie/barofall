@@ -18,5 +18,27 @@ public class LoadScore : MonoBehaviour {
         backGround.SetActive(true);
         backGroundMainMenu.SetActive(false);
         scorePanel.SetActive(true);
+
+        LoadScoreStats();
     }
+
+
+    private void LoadScoreStats()
+    {
+        var gameState = Persistance.Load();
+
+        if (gameState.levelScores.Count == 0)
+        {
+            Debug.Log("No scores available");
+            return;
+        }
+
+        foreach (LevelScore ls in gameState.levelScores)
+        {
+            Debug.Log("LEvel: " + ls.levelFinished + "  levelTime: " + ls.levelTime + "  totaltime: " + ls.totalTime + "  restarts: " + ls.restarts);
+        }
+
+    }
+
+
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DisableContinueButton : MonoBehaviour {
+public class DisableButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

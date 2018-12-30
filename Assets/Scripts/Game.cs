@@ -22,7 +22,6 @@ public class Game : MonoBehaviour {
     public float timeSlowScale = 0.5f;
     public float levelTime { get; private set; }
    
-    public int restarts { get; private set; }
     private float timeCounterMultiplier = 1f;
     //private GameObject levelStart;
     // private float lastCheckpointTime = 0f;
@@ -50,7 +49,7 @@ public class Game : MonoBehaviour {
         }
         */
 
-
+        //only singleton, does not preserve through scenes
         if(instance != null)
         {        
             Destroy(gameObject);
@@ -78,15 +77,15 @@ public class Game : MonoBehaviour {
     void Start()
     {
         //this is needed in the Main Menu Scene
-        if (SceneState.continueGame)
+        if (SceneState.instance.continueGame)
         {
-            SceneState.continueGame = false;
+            SceneState.instance.continueGame = false;
             this.ContinueGame();
         }
         
-        if (SceneState.newGame)
+        if (SceneState.instance.newGame)
         {
-            SceneState.newGame = false;
+            SceneState.instance.newGame = false;
             this.NewGame();
         }
 
@@ -209,7 +208,7 @@ public class Game : MonoBehaviour {
         {
             this.RevertTime(gameState.lastCheckpoint);
             this.MovePlayerToCheckpoint(gameState.lastCheckpoint);
-            restarts++;
+            gameState.restarts++;
         }    
     }
 
@@ -220,7 +219,7 @@ public class Game : MonoBehaviour {
         {
             this.RevertTime(gameState.lastLevelCheckpoint);
             this.MovePlayerToCheckpoint(gameState.lastLevelCheckpoint);
-            restarts++;
+            gameState.restarts++;
         }       
         
     }
@@ -245,17 +244,30 @@ public class Game : MonoBehaviour {
     }
 
 
-    public void NewLevel(int lvl)
+    public void NewLevel(Checkpoint cp)
     {
-        if(lvl == gameState.currentLevel)
+        if(cp.level == gameState.currentLevel)
         {
             return;
         }
-        gameState.currentLevel = lvl;
-        gameState.totalTime += this.levelTime;
+
+        gameState.currentLevel = cp.level;
+        gameState.totalTime += cp.levelTimeStamp;        
+        //zero out time, cause new level begins
         this.levelTime = 0f;
     }
 
+
+    public void LevelFinished(Checkpoint cp)
+    {
+        //saving score for the level
+        var levelScore = new LevelScore();
+        levelScore.levelFinished = cp.level - 1;
+        levelScore.levelTime = cp.levelTimeStamp;
+        levelScore.totalTime = gameState.totalTime;
+        levelScore.restarts = gameState.restarts;
+        gameState.levelScores.Add(levelScore);
+    }
 
     public void SaveGameState()
     {
@@ -267,6 +279,10 @@ public class Game : MonoBehaviour {
         gs.levelPhase = gameState.levelPhase;
         gs.totalTime = gameState.totalTime;
         gs.currentLevel = gameState.currentLevel;
+        gs.restarts = gameState.restarts;
+
+        //saving score
+        gs.levelScores = gameState.levelScores;
 
         //saving checkpoints
         Checkpoint lastCheckpoint = visitedCheckpoints.Peek();
@@ -349,6 +365,8 @@ public class GameStatePersisted
     public Game.LevelPhase levelPhase = Game.LevelPhase.PLATFORM;
     public float totalTime = 0f; //saved only when finishing a level;
     public int currentLevel = 0;
+    public int restarts = 0;
+    public List<LevelScore> levelScores = new List<LevelScore>();
 
 }
 
@@ -359,6 +377,16 @@ public class CheckpointState
     public float levelTimeStamp;
     public Vector3Ser spawnOffset = new Vector3Ser();
     public Vector3Ser position = new Vector3Ser();
+}
+
+[System.Serializable]
+public class LevelScore
+{
+    public int restarts = 0;
+    public int levelFinished = 0;
+    public float levelTime = 0f;
+    public float totalTime = 0f;
+
 }
 
 [System.Serializable]

@@ -20,4 +20,5 @@ public class LoadAbout : MonoBehaviour {
         aboutPanel.SetActive(true);
     }
 
+  
 }

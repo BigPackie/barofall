@@ -42,17 +42,30 @@ public class Checkpoint : MonoBehaviour {
     {
 
         Debug.Log("Checkpoint reached.");
+        if (SceneState.instance.ignoreFirstCheckpoint)
+        {
+            Debug.Log("Ignoring first checkpoint");
+            SceneState.instance.ignoreFirstCheckpoint = false;
+            return;
+        }
+
         this.levelTimeStamp = Game.instance.levelTime;
         this.visited = true;
 
-        Game.instance.visitedCheckpoints.Push(this);
+        Game.instance.visitedCheckpoints.Push(this); //saving checkpoint into not persistant memory
 
 
-        if (isLevelStart) ;
+        if (isLevelStart)
         {
             EventManager.TriggerEvent("OnLevelChange");
-            Game.instance.NewLevel(this.level);
+            Game.instance.NewLevel(this);
             
+        }
+
+        if (isLevelEnd)
+        {
+            EventManager.TriggerEvent("OnLevelFinished");
+            Game.instance.LevelFinished(this);
         }
 
         if (!isLevelStart && isLevelEnd)

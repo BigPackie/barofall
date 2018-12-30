@@ -8,14 +8,14 @@ public class Persistance: MonoBehaviour{
 
     public static string saveFileName = "gameState.dat";
 
-    public static void Save(GameState gs) {
+    public static void Save(GameStatePersisted gs) {
         BinaryFormatter bf = new BinaryFormatter();
         FileStream fs = File.Create(Path.Combine(Application.persistentDataPath, saveFileName));
         bf.Serialize(fs, gs);
         fs.Close();
     }
 
-    public static GameState Load()
+    public static GameStatePersisted Load()
     {
 
         if(!File.Exists(Path.Combine(Application.persistentDataPath, saveFileName)))
@@ -25,7 +25,7 @@ public class Persistance: MonoBehaviour{
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream fs = File.Open(Path.Combine(Application.persistentDataPath, saveFileName),FileMode.Open);
-        var gs = (GameState)bf.Deserialize(fs);
+        var gs = (GameStatePersisted)bf.Deserialize(fs);
         fs.Close();
         return gs;
     }
@@ -39,15 +39,15 @@ public class Persistance: MonoBehaviour{
         }
     }
 
-    public static GameState Merge(GameState gs)
+    public static GameStatePersisted Merge(GameStatePersisted gs)
     {
-        GameState saved = Load();
+        GameStatePersisted saved = Load();
         if (saved == null)
         {
             return gs;
         }
 
-        GameState merged = new GameState();
+        GameStatePersisted merged = gs; //this will copy every attribute which is not important to merge and must be always rewritten
 
         merged.lastCheckpoint = gs.lastCheckpoint == null ? saved.lastCheckpoint : gs.lastCheckpoint;
         merged.lastLevelCheckpoint = gs.lastLevelCheckpoint == null ? saved.lastLevelCheckpoint : gs.lastLevelCheckpoint;

@@ -7,6 +7,7 @@ TagManager:
   - Platform
   - CameraTrigger
   - Beam
+  - Checkpoint
   layers:
   - Default
   - TransparentFX

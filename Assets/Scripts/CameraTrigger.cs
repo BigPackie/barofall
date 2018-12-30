@@ -15,9 +15,20 @@ public class CameraTrigger : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")){
-            cameraController.SwitchCamera();
 
+        if(cameraController == null)
+        {
+            return;
+        }
+
+        if (Game.instance.gameState.levelPhase == nextPhase)
+        {
+            return;
+        }
+
+        if (other.CompareTag("Player")){
+            Game.instance.gameState.levelPhase = nextPhase;   
+            cameraController.SwitchCamera(nextPhase);
         }
     }
 

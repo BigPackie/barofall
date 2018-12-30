@@ -14,6 +14,8 @@ public class Game : MonoBehaviour {
 
     public enum LevelPhase { PLATFORM, TUNNEL };
     public GameObject player;
+
+   
     public Vector3 startPosition = new Vector3(0, 2, 0);
 
     private float timeScaleBeforePause = 1f; 
@@ -27,7 +29,7 @@ public class Game : MonoBehaviour {
     // private float lastCheckpointTime = 0f;
     //private GameObject lastCheckpoint;
 
-    public GameState gameState = null;
+    public GameStatePersisted gameState = new GameStatePersisted();
 
     private Game()
     {
@@ -128,8 +130,7 @@ public class Game : MonoBehaviour {
     private void NewGame()
     {
         Debug.Log("Starting new game");
-        //reset everything for new game
-        this.gameState = null;
+        //load the defalut game state;
         EventManager.TriggerEvent("gameStart");
         this.removeGameState();
     }
@@ -257,7 +258,10 @@ public class Game : MonoBehaviour {
     {
 
         Debug.Log("Saving game state");
-        var gs = new GameState();
+        var gs = new GameStatePersisted();
+
+        //saving phase
+        gs.levelPhase = gameState.levelPhase;
 
         //saving checkpoints
         Checkpoint lastCheckpoint = visitedCheckpoints.Peek();
@@ -325,18 +329,19 @@ public class Game : MonoBehaviour {
     void removeGameState()
     {
         Debug.Log("Deleting game state.");
-        this.gameState = null;
+        this.gameState = new GameStatePersisted();
         Persistance.Remove();        
     }
 
 }
 
 [System.Serializable]
-public class GameState
+public class GameStatePersisted
 {
     //public List<CheckpointState> visitedCheckpoints = new List<CheckpointState>();
     public CheckpointState lastLevelCheckpoint = null;
     public CheckpointState lastCheckpoint = null;
+    public Game.LevelPhase levelPhase = Game.LevelPhase.PLATFORM;
 
 }
 

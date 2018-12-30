@@ -52,6 +52,16 @@ public class Player : MonoBehaviour {
         fallTurnSpeedOriginal = this.fallTurnSpeed;
         rollTurnSpeedOriginal = this.rollTurnSpeed;
         gravityOriginal = Physics.gravity;
+
+        if(Game.instance.gameState.levelPhase == Game.LevelPhase.PLATFORM)
+        {
+            PlatformMode();
+        }
+        else
+        {
+            TunnelMode();
+        }
+
 	}
 
 
@@ -179,22 +189,23 @@ public class Player : MonoBehaviour {
     private void OnTriggerEnter(Collider other)
     {
         //TODO: CameraTrigger is maybe not the best name for this
-        if (other.gameObject.CompareTag("CameraTrigger"))
+        if (other.gameObject.CompareTag("Checkpoint"))
         {
-            if(other.gameObject.GetComponent<CameraTrigger>().nextPhase == Game.LevelPhase.TUNNEL)
-            {
-                Debug.Log("Setting fallspeed");
-                turnSpeed = fallTurnSpeed;
+            var cameraTrigger = other.gameObject.GetComponent<CameraTrigger>();
 
-                renderer.material = fade;
+            if(cameraTrigger.cameraController == null)
+            {
+                return;
             }
 
-            if (other.gameObject.GetComponent<CameraTrigger>().nextPhase == Game.LevelPhase.PLATFORM)
+            if (cameraTrigger.nextPhase == Game.LevelPhase.TUNNEL)
             {
-                Debug.Log("Setting rollSpeed");
-                turnSpeed = rollTurnSpeed;
+                TunnelMode();
+            }
 
-                renderer.material = opaque;
+            if (cameraTrigger.nextPhase == Game.LevelPhase.PLATFORM)
+            {
+                PlatformMode();
             }
 
         }
@@ -211,8 +222,24 @@ public class Player : MonoBehaviour {
 
     }
 
-  
+
+    private void PlatformMode()
+    {
+        Debug.Log("Setting rollSpeed");
+        turnSpeed = rollTurnSpeed;
+
+        renderer.material = opaque;
+    }
+
+    private void TunnelMode()
+    {
+        Debug.Log("Setting fallspeed");
+        turnSpeed = fallTurnSpeed;
+
+        renderer.material = fade;
+    }
 
 
-  
+
+
 }

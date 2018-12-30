@@ -23,9 +23,10 @@ GameObject:
   - component: {fileID: 23771099597311824}
   - component: {fileID: 136958800008209056}
   - component: {fileID: 114481628086679726}
+  - component: {fileID: 114241932842897570}
   m_Layer: 0
   m_Name: Checkpoint
-  m_TagString: Untagged
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1579112781736766}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3.62, y: 0.7, z: -10.56}
+  m_LocalPosition: {x: 5.22, y: 0.7, z: -10.56}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,6 +86,19 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1579112781736766}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114241932842897570
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1579112781736766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fc4bb5a5b9099f45af7a575b09f815b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraController: {fileID: 0}
+  nextPhase: 0
 --- !u!114 &114481628086679726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,11 +110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 561cf0aee068dde46a381639324fd11e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLevelStart: 0
+  isLevelStart: 1
   isLevelEnd: 0
   visited: 0
-  spawnOffset: {x: 0, y: 2, z: 0}
-  level: 0
+  spawnOffset: {x: 0, y: 0, z: 0}
+  level: 1
 --- !u!136 &136958800008209056
 CapsuleCollider:
   m_ObjectHideFlags: 1

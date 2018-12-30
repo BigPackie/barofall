@@ -11,21 +11,26 @@ public class CameraController : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        platformCamera.SetActive(true);
-        tunnelCamera.SetActive(false);
+        SwitchCamera(Game.instance.gameState.levelPhase);
 	}
 	
-    public void SwitchCamera()
+    public void SwitchCamera(Game.LevelPhase lp)
     {
-        platformCamera.SetActive(!platformCamera.active);
-        tunnelCamera.SetActive(!tunnelCamera.active);
+        if(lp == Game.LevelPhase.PLATFORM)
+        {
+            platformCamera.SetActive(true);
+            tunnelCamera.SetActive(false);
+        }
+        else
+        {
+            tunnelCamera.SetActive(true);
+            platformCamera.SetActive(false);
+        }
+        
+        
     }
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            SwitchCamera();
-        }
 	}
 }

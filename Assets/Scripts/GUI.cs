@@ -10,7 +10,7 @@ public class GUI : MonoBehaviour {
 
 
     //gui components
-    public Text totalTime;
+    public Text actualLevelTime;
     public Text effect;
     public Text scoreLevel;
     public Text scoreRestarts;
@@ -68,7 +68,7 @@ public class GUI : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        totalTime.text = Game.instance.levelTime.ToString("00:00.00");
+        actualLevelTime.text = Game.instance.levelTime.ToString("00:00.00");
     }
 
     // Update is called once per frame
@@ -139,9 +139,9 @@ public class GUI : MonoBehaviour {
 
     private void RefreshScore()
     {
-        scoreLevelTime.text = Game.instance.levelTime.ToString("00:00.00");
-        scoreTotalTime.text = (Game.instance.totalTime + Game.instance.levelTime).ToString("00:00.00"); //actual total time;
-        scoreLevel.text = "Level " + Game.instance.currentLevel;
+        scoreLevelTime.text = actualLevelTime.text;
+        scoreTotalTime.text = (Game.instance.gameState.totalTime + Game.instance.levelTime).ToString("00:00.00"); //actual total time;
+        scoreLevel.text = "Level " + Game.instance.gameState.currentLevel;
         scoreRestarts.text = Game.instance.restarts.ToString();
     }
 

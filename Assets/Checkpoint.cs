@@ -46,9 +46,9 @@ public class Checkpoint : MonoBehaviour {
         this.visited = true;
 
         Game.instance.visitedCheckpoints.Push(this);
-        Game.instance.SaveGameState(); //savign state on every checkpoint reached 
 
-        if (isLevelStart)
+
+        if (isLevelStart) ;
         {
             EventManager.TriggerEvent("OnLevelChange");
             Game.instance.NewLevel(this.level);
@@ -59,6 +59,7 @@ public class Checkpoint : MonoBehaviour {
         {
             //TODO: last checkpoint reached, end game.
         }
-        
+
+        Game.instance.SaveGameState(); //savign state on every checkpoint reached 
     }
 }

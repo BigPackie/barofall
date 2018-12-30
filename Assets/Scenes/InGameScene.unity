@@ -1613,6 +1613,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114114659874363608, guid: ab306088207f02041a867cf43f8cb432,
+        type: 2}
+      propertyPath: actualLevelTime
+      value: 
+      objectReference: {fileID: 1656910050}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab306088207f02041a867cf43f8cb432, type: 2}
   m_IsPrefabAsset: 0
@@ -1710,6 +1715,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3af5e8998efcab4a8ca462ed77e8061, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1656910050 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114967276007902798, guid: ab306088207f02041a867cf43f8cb432,
+    type: 2}
+  m_PrefabInternal: {fileID: 1535609092}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1722633222
 Prefab:
   m_ObjectHideFlags: 0

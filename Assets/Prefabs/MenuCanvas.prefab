@@ -351,6 +351,7 @@ GameObject:
   - component: {fileID: 224273247031115520}
   - component: {fileID: 222409624367123764}
   - component: {fileID: 114034142963255166}
+  - component: {fileID: 114117158947769778}
   m_Layer: 5
   m_Name: Score
   m_TagString: Untagged
@@ -825,6 +826,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7d909d3e74d1b468dbe0a4bfefbe1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114117158947769778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1603890812110958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d069fdad9a97ef4aabc432da1907b06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  restarts: {fileID: 114013323431770296}
+  level: {fileID: 114366422672660750}
+  totalTime: {fileID: 114655694145674122}
+  levelTime: {fileID: 114811170244379098}
+  next: {fileID: 114590396261759616}
+  previous: {fileID: 114880905338844556}
+  levelScores: []
 --- !u!114 &114130922991127948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1604,7 +1623,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114659968266998262}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114117158947769778}
+        m_MethodName: NextScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114653687781655118
@@ -2171,7 +2201,7 @@ MonoBehaviour:
     m_NormalColor: {r: 0.9716981, g: 0.81127626, b: 0.81127626, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.48164177, g: 0, b: 0.5, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -2187,7 +2217,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114358711238126330}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114117158947769778}
+        m_MethodName: PreviousScore
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114906263098427820

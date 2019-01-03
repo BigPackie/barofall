@@ -311,6 +311,25 @@ Prefab:
       propertyPath: particles
       value: 
       objectReference: {fileID: 1524803845}
+    - target: {fileID: 1896722872334672, guid: e4346d65b7353f1448803fe831ecf131, type: 2}
+      propertyPath: m_Name
+      value: Previous
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590396261759616, guid: e4346d65b7353f1448803fe831ecf131,
+        type: 2}
+      propertyPath: m_Colors.m_DisabledColor.r
+      value: 0.48235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590396261759616, guid: e4346d65b7353f1448803fe831ecf131,
+        type: 2}
+      propertyPath: m_Colors.m_DisabledColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114590396261759616, guid: e4346d65b7353f1448803fe831ecf131,
+        type: 2}
+      propertyPath: m_Colors.m_DisabledColor.b
+      value: 0.5019608
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4346d65b7353f1448803fe831ecf131, type: 2}
   m_IsPrefabAsset: 0
@@ -342,6 +361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   continueGame: 0
+  ignoreFirstCheckpoint: 0
   newGame: 0
 --- !u!4 &455009209
 Transform:

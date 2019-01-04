@@ -40,6 +40,7 @@ public class GUI : MonoBehaviour {
         EventManager.StartListening("mainMenu", OnMainMenu);
         EventManager.StartListening("effect", OnEffect);
         EventManager.StartListening("OnLevelStart", OnLevelChange);
+        EventManager.StartListening("OnLevelEnd", OnLevelEnd);
     }
 
 
@@ -53,6 +54,7 @@ public class GUI : MonoBehaviour {
         EventManager.StopListening("mainMenu", OnMainMenu);
         EventManager.StopListening("effect", OnEffect);
         EventManager.StopListening("OnLevelChange", OnLevelChange);
+        EventManager.StopListening("OnLevelEnd", OnLevelEnd);
 
     }
 
@@ -134,14 +136,25 @@ public class GUI : MonoBehaviour {
     private void OnLevelChange(GameObject go)
     {
         //
-
     }
 
-    private void RefreshScore()
+    private void OnLevelEnd(GameObject go)
     {
+        Debug.Log("Level ended");
+        pauseMenu.SetActive(true);
+        pauseButton.SetActive(false);
+        hud.SetActive(false);
+        RefreshScore(true);
+        Game.instance.Pause();       
+    }
+
+    private void RefreshScore(bool levelend = false)
+    {
+        var level = Game.instance.gameState.currentLevel;
+        level = levelend ? level - 1 : level;
         scoreLevelTime.text = actualLevelTime.text;
         scoreTotalTime.text = (Game.instance.gameState.totalTime + Game.instance.levelTime).ToString("00:00.00"); //actual total time;
-        scoreLevel.text = "Level " + Game.instance.gameState.currentLevel;
+        scoreLevel.text = "Level " + level;
         scoreRestarts.text = Game.instance.gameState.restarts.ToString();
     }
 

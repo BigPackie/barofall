@@ -659,6 +659,11 @@ Prefab:
       propertyPath: m_Name
       value: PlatformPart (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 114492591045120496, guid: 1c13712190948044c9a2b4ba4cb88518,
+        type: 2}
+      propertyPath: type
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1c13712190948044c9a2b4ba4cb88518, type: 2}
   m_IsPrefabAsset: 0

@@ -4234,15 +4234,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4753661656753544, guid: d4314d6069a5d7a46a498e409e4443ac, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: 19.5
       objectReference: {fileID: 0}
     - target: {fileID: 4753661656753544, guid: d4314d6069a5d7a46a498e409e4443ac, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: 4753661656753544, guid: d4314d6069a5d7a46a498e409e4443ac, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 20
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 4753661656753544, guid: d4314d6069a5d7a46a498e409e4443ac, type: 2}
       propertyPath: m_LocalRotation.x
@@ -4263,6 +4263,21 @@ Prefab:
     - target: {fileID: 4753661656753544, guid: d4314d6069a5d7a46a498e409e4443ac, type: 2}
       propertyPath: m_RootOrder
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114412106872937774, guid: d4314d6069a5d7a46a498e409e4443ac,
+        type: 2}
+      propertyPath: ballDrag
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 54028067939427180, guid: d4314d6069a5d7a46a498e409e4443ac,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114412106872937774, guid: d4314d6069a5d7a46a498e409e4443ac,
+        type: 2}
+      propertyPath: rollBallDrag
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4314d6069a5d7a46a498e409e4443ac, type: 2}

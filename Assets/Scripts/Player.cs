@@ -30,7 +30,9 @@ public class Player : MonoBehaviour {
 
 
     //this drag is used to simulate friction on platform surfaces
-    public float ballDrag = 0.2f;
+    private float ballDrag = 0.2f;
+    public float fallBallDrag = 0.6f;
+    public float rollBallDrag = 0.6f;
 
     public float massOriginal { get; private set; }
     public float rollTurnSpeedOriginal { get; private set; }
@@ -45,7 +47,8 @@ public class Player : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
         renderer = GetComponent<Renderer>();
         color = renderer.material.color;
-    
+
+        ballDrag = rollBallDrag;
         rb.drag = ballDrag;
         rb.angularDrag = ballDrag;
         massOriginal = rb.mass;
@@ -225,16 +228,20 @@ public class Player : MonoBehaviour {
 
     private void PlatformMode()
     {
-        Debug.Log("Setting rollSpeed");
+        Debug.Log("Setting platform mode");
         turnSpeed = rollTurnSpeed;
+        ballDrag = rollBallDrag;
+        rb.drag = ballDrag;
 
         renderer.material = opaque;
     }
 
     private void TunnelMode()
     {
-        Debug.Log("Setting fallspeed");
+        Debug.Log("Setting tunnel mode");
         turnSpeed = fallTurnSpeed;
+        ballDrag = fallBallDrag;
+        rb.drag = ballDrag;
 
         renderer.material = fade;
     }

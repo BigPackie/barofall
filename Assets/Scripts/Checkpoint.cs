@@ -28,7 +28,6 @@ public class Checkpoint : MonoBehaviour {
         if (other.gameObject.CompareTag("Player") && !visited)
         {
             SaveCheckpoint();
-            EventManager.TriggerEvent("checkpoint", gameObject);
         }
     }
 
@@ -81,6 +80,11 @@ public class Checkpoint : MonoBehaviour {
         if (!isLevelStart && isLevelEnd)
         {
             //TODO: last checkpoint reached, end game.
+        }
+
+        if(!isLevelStart && !isLevelEnd)
+        {
+            EventManager.TriggerEvent("checkpoint", gameObject);
         }
 
 

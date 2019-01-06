@@ -5,15 +5,16 @@ using UnityEngine;
 public class Rotate : MonoBehaviour {
 
     public int degreesPerSecond = 180;  //positive number gives clockwise rotation
-    Vector3 eulers;
+    public Vector3 rotationAxix = new Vector3(0, 1, 0);
+    float rotation;
 
 	void Start () {
-        eulers = new Vector3(0, degreesPerSecond / 60f, 0); //divide by 60 to get rotation per second
+        rotation = degreesPerSecond / 60f ; //divide by 60 to get rotation per second
     }
 	
 
 	void FixedUpdate () {
-        transform.Rotate(eulers, Space.Self);
+        transform.Rotate(rotationAxix*rotation, Space.Self);
 	}
 
 

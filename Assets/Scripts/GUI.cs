@@ -20,20 +20,18 @@ public class GUI : MonoBehaviour {
     public GameObject pauseMenu;
     public GameObject pauseButton;
     public GameObject hud;
+    public GameObject checkpointLabel;
     //gui components end
 
-
-
-    private UnityAction<GameObject> someListener;
+    public float checkpointTimeout = 3f;
 
     private void Awake()
     {
-        someListener = (go) => Debug.Log("Fired event test from gui ");
+
     }
 
     private void OnEnable()
     {
-        EventManager.StartListening("test", someListener);
         EventManager.StartListening("pause", OnPause);
         EventManager.StartListening("continue", OnContinue);
         EventManager.StartListening("restartFromCheckPoint", OnRestartFromCheckPoint);
@@ -42,12 +40,12 @@ public class GUI : MonoBehaviour {
         EventManager.StartListening("effect", OnEffect);
         EventManager.StartListening("OnLevelStart", OnLevelChange);
         EventManager.StartListening("OnLevelEnd", OnLevelEnd);
+        EventManager.StartListening("checkpoint", OnCheckpoint);
     }
 
 
     private void OnDisable()
     {
-        EventManager.StopListening("test", someListener);
         EventManager.StopListening("pause", OnPause);
         EventManager.StopListening("continue", OnContinue);
         EventManager.StopListening("restartFromCheckPoint", OnRestartFromCheckPoint);
@@ -56,14 +54,9 @@ public class GUI : MonoBehaviour {
         EventManager.StopListening("effect", OnEffect);
         EventManager.StopListening("OnLevelChange", OnLevelChange);
         EventManager.StopListening("OnLevelEnd", OnLevelEnd);
-
+        EventManager.StopListening("checkpoint", OnCheckpoint);
     }
 
-
-    private void TestFunction(GameObject go)
-    {
-        Debug.Log("Fired event test from gui without UnityAction");
-    }
 
     // Use this for initialization
     void Start () {
@@ -76,7 +69,6 @@ public class GUI : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-     
     }
 
 
@@ -151,6 +143,20 @@ public class GUI : MonoBehaviour {
         hud.SetActive(false);
         RefreshScore(true);
         Game.instance.Pause();       
+    }
+
+
+    private void OnCheckpoint(GameObject go)
+    {
+        Debug.Log("New checkpoint reached.");
+        checkpointLabel.SetActive(true);
+        StartCoroutine(HideCheckpointText());
+    }
+
+    private IEnumerator HideCheckpointText()
+    {
+        yield return new WaitForSeconds(checkpointTimeout);
+        checkpointLabel.SetActive(false);
     }
 
     private void RefreshScore(bool levelend = false)

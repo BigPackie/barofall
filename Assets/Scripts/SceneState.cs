@@ -5,9 +5,10 @@ using UnityEngine;
 public class SceneState: MonoBehaviour {
 
     public static SceneState instance = null;
-    public  bool continueGame = false;
+    public bool continueGame = false;
     public bool ignoreFirstCheckpoint = false; //cause if we continue game the scene is reloaded and we activate the same checkpoint, we don't want that
-    public  bool newGame = false;
+    public bool fromLevel = false;
+    public bool newGame = false;
 
     
     private void Awake()

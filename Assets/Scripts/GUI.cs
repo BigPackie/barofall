@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class GUI : MonoBehaviour {
@@ -109,15 +110,19 @@ public class GUI : MonoBehaviour {
     private void OnRestartLevel(GameObject go)
     {
         Debug.Log("RestartLevel");
-        Game.instance.RestartLastLevel();
         this.OnContinue(go);
+        SceneState.instance.continueGame = true;
+        SceneState.instance.fromLevel = true;    
+        SceneManager.LoadScene(1);       
     }
 
     private void OnRestartFromCheckPoint(GameObject go)
     {
         Debug.Log("RestartFromCheckpoint");
-        Game.instance.RestartFromCheckPoint();
         this.OnContinue(go);
+        SceneState.instance.continueGame = true;
+        SceneState.instance.ignoreFirstCheckpoint = true;
+        SceneManager.LoadScene(1);       
     }
 
     private void OnEffect(GameObject go)

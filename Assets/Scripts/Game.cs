@@ -21,7 +21,9 @@ public class Game : MonoBehaviour {
     private float timeScaleBeforePause = 1f; 
     public float timeSlowScale = 0.5f;
     public float levelTime { get; private set; }
-   
+
+    public bool afterLevelRestart = false;
+
     private float timeCounterMultiplier = 1f;
     //private GameObject levelStart;
     // private float lastCheckpointTime = 0f;
@@ -59,11 +61,6 @@ public class Game : MonoBehaviour {
             instance = this;
         }
 
-    }
-
-    private void OnDestroy()
-    {
-        //this.SaveGameState();
     }
 
     private void OnEnable()
@@ -129,19 +126,26 @@ public class Game : MonoBehaviour {
     {
         Debug.Log("Starting new game");
         //load the defalut game state;
-        EventManager.TriggerEvent("gameStart");
+        //EventManager.TriggerEvent("gameStart");
         this.removeGameState();
     }
 
     private void ContinueGame()
     {
         Debug.Log("Continue the game");
-        //player = Instantiate(playerPrefab);
-        //player = GameObject.FindWithTag("Player");
-        //move the player to last checkpoint
-        EventManager.TriggerEvent("gameContinue");
+
         this.LoadGameState();
-        RestartFromCheckPoint();
+
+        if (SceneState.instance.fromLevel)
+        {
+            SceneState.instance.fromLevel = false;
+            RestartLastLevel();
+        }
+        else
+        {
+            RestartFromCheckPoint();
+        }
+
     }
 
 
@@ -217,6 +221,7 @@ public class Game : MonoBehaviour {
        
         if (gameState != null  && gameState.lastLevelCheckpoint != null)
         {
+            this.afterLevelRestart = true;
             this.RevertTime(gameState.lastLevelCheckpoint);
             this.MovePlayerToCheckpoint(gameState.lastLevelCheckpoint);
             gameState.restarts++;

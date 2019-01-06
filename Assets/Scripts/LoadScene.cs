@@ -10,6 +10,7 @@ public class LoadScene : MonoBehaviour {
     public void ContinueGame()
     {
         SceneState.instance.continueGame = true;
+        SceneState.instance.fromLevel = false;
         SceneState.instance.ignoreFirstCheckpoint = true;
         SceneManager.LoadScene(1);
     }
@@ -25,6 +26,7 @@ public class LoadScene : MonoBehaviour {
     {
         SceneState.instance.newGame = false;
         SceneState.instance.continueGame = false;
+        SceneState.instance.fromLevel = false;
         SceneState.instance.ignoreFirstCheckpoint = false;
         SceneManager.LoadScene(0);
     }

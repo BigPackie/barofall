@@ -44,7 +44,7 @@ public class Checkpoint : MonoBehaviour {
         Debug.Log("Checkpoint reached.");
         if (SceneState.instance.ignoreFirstCheckpoint)
         {
-            //because if the checkopoints are refreshed after loading the scene again, we would rewrite out save.
+            //because if the checkopoints are refreshed after loading the scene again, we would rewrite our save.
             Debug.Log("Ignoring first checkpoint");
             SceneState.instance.ignoreFirstCheckpoint = false;
             return;
@@ -65,14 +65,24 @@ public class Checkpoint : MonoBehaviour {
 
         if (isLevelEnd)
         {
-            EventManager.TriggerEvent("OnLevelEnd");
-            Game.instance.LevelFinished(this);
+            //we don't want to trigger level end event after level restart;
+            if (Game.instance.afterLevelRestart)
+            {
+                Game.instance.afterLevelRestart = false;
+            }
+            else
+            {
+                EventManager.TriggerEvent("OnLevelEnd");
+                Game.instance.LevelFinished(this);
+            }
+            
         }
 
         if (!isLevelStart && isLevelEnd)
         {
             //TODO: last checkpoint reached, end game.
         }
+
 
         Game.instance.SaveGameState(); //savign state on every checkpoint reached 
     }

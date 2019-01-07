@@ -29,6 +29,14 @@ public class SpeedEffect : MonoBehaviour {
         var player = other.gameObject.GetComponent<Player>();
         player.rollTurnSpeed = player.rollTurnSpeedOriginal * speedMultiplier;
         player.fallTurnSpeed = player.fallTurnSpeedOriginal * speedMultiplier;
+        if (Game.instance.gameState.levelPhase == Game.LevelPhase.PLATFORM)
+        {
+            player.turnSpeed = player.rollTurnSpeed;
+        }
+        else
+        {
+            player.turnSpeed = player.fallTurnSpeed;
+        }
         Physics.gravity = player.gravityOriginal * speedMultiplier;
         EventManager.TriggerEvent("speed", this.gameObject);
         Debug.Log("Entered speed collectible trigger");

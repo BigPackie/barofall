@@ -14,11 +14,11 @@ public class Player : MonoBehaviour {
     public Material opaque;
     public Material fade;
 
-    float turnSpeed = 5f;
+    public float turnSpeed = 20f;
     Color color;
 
-    public float rollTurnSpeed = 5f;
-    public float fallTurnSpeed = 50f;
+    public float rollTurnSpeed = 20f;
+    public float fallTurnSpeed = 80f;
 
     private float effectDurationCounter;
     private float effectDuration;
@@ -138,12 +138,23 @@ public class Player : MonoBehaviour {
         this.effectDurationCounter = 0f;
         this.effectDuration = 0f;
 
+        this.rollTurnSpeed = rollTurnSpeedOriginal;
+        this.fallTurnSpeed = fallTurnSpeedOriginal;
+        if(Game.instance.gameState.levelPhase == Game.LevelPhase.PLATFORM)
+        {
+            this.turnSpeed = this.rollTurnSpeed;
+        }
+        else
+        {
+            this.turnSpeed = this.fallTurnSpeed;
+        }
+
+        this.rb.drag = ballDrag;
         this.rb.mass = this.massOriginal;
         this.inverted = false;
         this.beamImmune = false;
         this.isTimeSlow = false;
-        this.fallTurnSpeed = this.fallTurnSpeedOriginal;
-        this.rollTurnSpeed = this.rollTurnSpeedOriginal;
+      
         Physics.gravity = gravityOriginal;
         EventManager.TriggerEvent("timeSlow", gameObject);
         EventManager.TriggerEvent("speedReset");

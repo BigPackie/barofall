@@ -68,7 +68,15 @@ public class Player : MonoBehaviour {
 
     void FixedUpdate()
     {
-        Controll();
+        if(Application.platform == RuntimePlatform.Android)
+        {
+            ControllMobile();
+        }
+        else
+        {
+            Controll();
+        }
+       
     }
 
     // Update is called once per frame
@@ -225,12 +233,22 @@ public class Player : MonoBehaviour {
 
     private void Controll()
     {
-        //TODO make check based on platform (mobile, PC)
 
         float moveHorizontal = Input.GetAxis("Horizontal") * turnSpeed * (inverted ? -1 : 1);
         float moveVertical = Input.GetAxis("Vertical") * turnSpeed * (inverted ? -1 : 1);
 
         rb.AddForce(new Vector3(moveHorizontal, 0, moveVertical),ForceMode.Force);
+
+    }
+
+    private void ControllMobile()
+    {
+        //TODO make check based on platform (mobile, PC)
+
+        float moveHorizontal = Input.acceleration.x * turnSpeed * (inverted ? -1 : 1);
+        float moveVertical = Input.acceleration.y * turnSpeed * (inverted ? -1 : 1);
+
+        rb.AddForce(new Vector3(moveHorizontal, 0, moveVertical), ForceMode.Force);
 
     }
 

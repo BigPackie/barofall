@@ -67,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1300020332955560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: -2, y: 3, z: 20}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4546363860085516}
@@ -125,7 +125,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 3
   m_Drag: 1
-  m_AngularDrag: 0.5
+  m_AngularDrag: 0.6
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -156,7 +156,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -179,15 +179,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8348dae69440813438f6f24cef7fbc56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
   opaque: {fileID: 2100000, guid: 49f10830d9cef3b4490ebdeb4ebb45d2, type: 2}
   fade: {fileID: 2100000, guid: 1aae3e835aea4414abe6b545a3eec520, type: 2}
+  turnSpeed: 20
   rollTurnSpeed: 20
   fallTurnSpeed: 80
   inverted: 0
   beamImmune: 0
   isTimeSlow: 0
-  ballDrag: 0.2
+  fallBallDrag: 0.6
+  rollBallDrag: 0.2
 --- !u!135 &135656434622575214
 SphereCollider:
   m_ObjectHideFlags: 1

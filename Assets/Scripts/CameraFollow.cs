@@ -43,8 +43,8 @@ public class CameraFollow : MonoBehaviour
         if (target == null) return;
 
 
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
+        float moveHorizontal = Controlls.GetHorizontal();
+        float moveVertical = Controlls.GetVertical();
 
         moveDirection = new Vector3(-moveVertical, 0, moveHorizontal);
 

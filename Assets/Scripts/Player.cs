@@ -9,7 +9,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
     public Rigidbody rb { private set;get; }
-    private new Renderer renderer;
+    private Renderer rend;
 
     public Material opaque;
     public Material fade;
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour {
         Game.instance.player = gameObject;
         turnSpeed = rollTurnSpeed;
         rb = GetComponent<Rigidbody>();
-        renderer = GetComponent<Renderer>();
+        rend = GetComponent<Renderer>();
 
         ballDrag = rollBallDrag;
         rb.drag = ballDrag;
@@ -68,15 +68,7 @@ public class Player : MonoBehaviour {
 
     void FixedUpdate()
     {
-        if(Application.platform == RuntimePlatform.Android)
-        {
-            ControllMobile();
-        }
-        else
-        {
-            Controll();
-        }
-       
+        Controll();         
     }
 
     // Update is called once per frame
@@ -234,21 +226,10 @@ public class Player : MonoBehaviour {
     private void Controll()
     {
 
-        float moveHorizontal = Input.GetAxis("Horizontal") * turnSpeed * (inverted ? -1 : 1);
-        float moveVertical = Input.GetAxis("Vertical") * turnSpeed * (inverted ? -1 : 1);
+        float moveHorizontal = Controlls.GetHorizontal() * turnSpeed * (inverted ? -1 : 1);
+        float moveVertical = Controlls.GetVertical() * turnSpeed * (inverted ? -1 : 1);
 
         rb.AddForce(new Vector3(moveHorizontal, 0, moveVertical),ForceMode.Force);
-
-    }
-
-    private void ControllMobile()
-    {
-        //TODO make check based on platform (mobile, PC)
-
-        float moveHorizontal = Input.acceleration.x * turnSpeed * (inverted ? -1 : 1);
-        float moveVertical = Input.acceleration.y * turnSpeed * (inverted ? -1 : 1);
-
-        rb.AddForce(new Vector3(moveHorizontal, 0, moveVertical), ForceMode.Force);
 
     }
 
@@ -260,7 +241,7 @@ public class Player : MonoBehaviour {
         ballDrag = rollBallDrag;
         rb.drag = ballDrag;
 
-        renderer.material = opaque;
+        rend.material = opaque;
     }
 
     private void TunnelMode()
@@ -270,7 +251,7 @@ public class Player : MonoBehaviour {
         ballDrag = fallBallDrag;
         rb.drag = ballDrag;
 
-        renderer.material = fade;
+        rend.material = fade;
     }
 
 

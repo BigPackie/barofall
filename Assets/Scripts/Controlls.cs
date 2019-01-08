@@ -4,14 +4,13 @@ using UnityEngine;
 
 public static class Controlls {
 
-   public  static float mobileSenstitivity = 2f; //this should increase sensitivity, so I reach max acceleration with less mobile tilt
+   public  static float mobileSenstitivity = 3f; //this should increase sensitivity, so I reach max acceleration with less mobile tilt
 
    public static float GetHorizontal()
     {
         if (Application.platform == RuntimePlatform.Android)
         {
-            // return Mathf.Clamp(Input.acceleration.x * mobileSenstitivity, -1, 1);      
-            return Input.acceleration.x;
+            return Mathf.Clamp(Input.acceleration.x * mobileSenstitivity, -1, 1);                
         }
         else
         {
@@ -25,8 +24,7 @@ public static class Controlls {
     {
         if (Application.platform == RuntimePlatform.Android)
         {
-            //return Mathf.Clamp(Input.acceleration.y * mobileSenstitivity, -1, 1);
-            return Input.acceleration.y;
+            return Mathf.Clamp(Input.acceleration.y * mobileSenstitivity, -1, 1);
         }
         else
         {

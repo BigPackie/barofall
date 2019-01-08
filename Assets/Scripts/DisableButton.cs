@@ -7,7 +7,9 @@ public class DisableButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if(Persistance.Load() == null)
+        var gs = Persistance.Load();
+
+        if (gs == null || gs.levelScores.Count == 0)
         {
             gameObject.GetComponent<Button>().interactable = false;
         }

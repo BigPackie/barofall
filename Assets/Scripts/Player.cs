@@ -169,7 +169,7 @@ public class Player : MonoBehaviour {
             var surface = collision.gameObject.GetComponent<Surface>();
             if (surface)
             {
-                Debug.Log("Surface exit" + surface.type);
+               
                 rb.drag = ballDrag;
                 rb.angularDrag = ballDrag;
             }

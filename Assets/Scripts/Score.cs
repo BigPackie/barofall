@@ -34,8 +34,8 @@ public class Score : MonoBehaviour {
     {
         var levelScore = levelScores[this.scoreIndex];
         this.level.text = "Level "  + levelScore.levelFinished;
-        this.levelTime.text = levelScore.levelTime.ToString("00:00.00");
-        this.totalTime.text = levelScore.totalTime.ToString("00:00.00");
+        this.levelTime.text = TimeFormatter.FormatTime(levelScore.levelTime);
+        this.totalTime.text = TimeFormatter.FormatTime(levelScore.totalTime);
         this.restarts.text = levelScore.restarts.ToString();
     }
 

@@ -38,7 +38,6 @@ public class GUI : MonoBehaviour {
         EventManager.StartListening("restartLevel", OnRestartLevel);
         EventManager.StartListening("mainMenu", OnMainMenu);
         EventManager.StartListening("effect", OnEffect);
-        EventManager.StartListening("OnLevelStart", OnLevelChange);
         EventManager.StartListening("OnLevelEnd", OnLevelEnd);
         EventManager.StartListening("checkpoint", OnCheckpoint);
     }
@@ -52,7 +51,6 @@ public class GUI : MonoBehaviour {
         EventManager.StopListening("restartLevel", OnRestartLevel);
         EventManager.StopListening("mainMenu", OnMainMenu);
         EventManager.StopListening("effect", OnEffect);
-        EventManager.StopListening("OnLevelChange", OnLevelChange);
         EventManager.StopListening("OnLevelEnd", OnLevelEnd);
         EventManager.StopListening("checkpoint", OnCheckpoint);
     }
@@ -64,7 +62,7 @@ public class GUI : MonoBehaviour {
 
     private void FixedUpdate()
     {
-        actualLevelTime.text = Game.instance.levelTime.ToString("00:00.00");
+        actualLevelTime.text = TimeFormatter.FormatTime(Game.instance.levelTime);
     }
 
     // Update is called once per frame
@@ -130,11 +128,6 @@ public class GUI : MonoBehaviour {
         
     }
 
-    private void OnLevelChange(GameObject go)
-    {
-        //
-    }
-
     private void OnLevelEnd(GameObject go)
     {
         Debug.Log("Level ended");
@@ -164,7 +157,7 @@ public class GUI : MonoBehaviour {
         var level = Game.instance.gameState.currentLevel;
         level = levelend ? level - 1 : level;
         scoreLevelTime.text = actualLevelTime.text;
-        scoreTotalTime.text = (Game.instance.gameState.totalTime + Game.instance.levelTime).ToString("00:00.00"); //actual total time;
+        scoreTotalTime.text = TimeFormatter.FormatTime(Game.instance.gameState.totalTime + Game.instance.levelTime); //actual total time;
         scoreLevel.text = "Level " + level;
         scoreRestarts.text = Game.instance.gameState.restarts.ToString();
     }

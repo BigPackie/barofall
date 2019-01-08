@@ -251,13 +251,7 @@ public class Game : MonoBehaviour {
 
     public void NewLevel(Checkpoint cp)
     {
-        if(cp.level == gameState.currentLevel)
-        {
-            return;
-        }
-
-        gameState.currentLevel = cp.level;
-        gameState.totalTime += cp.levelTimeStamp;        
+        gameState.currentLevel = cp.level;     
         //zero out time, cause new level begins
         this.levelTime = 0f;
     }
@@ -269,6 +263,7 @@ public class Game : MonoBehaviour {
         var levelScore = new LevelScore();
         levelScore.levelFinished = cp.level - 1;
         levelScore.levelTime = cp.levelTimeStamp;
+        gameState.totalTime += cp.levelTimeStamp;
         levelScore.totalTime = gameState.totalTime;
         levelScore.restarts = gameState.restarts;
         gameState.levelScores.Add(levelScore);

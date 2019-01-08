@@ -19,7 +19,7 @@ public class LoadScore : MonoBehaviour {
         backGroundMainMenu.SetActive(false);
         scorePanel.SetActive(true);
 
-        LoadScoreStats();
+        //LoadScoreStats();
     }
 
 

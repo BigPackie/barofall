@@ -330,7 +330,8 @@ Prefab:
       propertyPath: m_Colors.m_DisabledColor.b
       value: 0.5019608
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114079551017516406, guid: e4346d65b7353f1448803fe831ecf131, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: e4346d65b7353f1448803fe831ecf131, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &455009206
@@ -362,6 +363,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   continueGame: 0
   ignoreFirstCheckpoint: 0
+  fromLevel: 0
   newGame: 0
 --- !u!4 &455009209
 Transform:
@@ -492,6 +494,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1081440214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1800300592324280, guid: e4346d65b7353f1448803fe831ecf131,
+    type: 2}
+  m_PrefabInternal: {fileID: 203622488}
+--- !u!114 &1081440216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1081440214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40d9dae5c96bb7544bb3371213b13bbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1190821136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 7461a7b0cf97947fd9b9e4502fd2d07b,

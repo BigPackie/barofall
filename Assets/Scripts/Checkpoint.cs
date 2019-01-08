@@ -57,9 +57,12 @@ public class Checkpoint : MonoBehaviour {
 
         if (isLevelStart)
         {
-            EventManager.TriggerEvent("OnLevelChange");
-            Game.instance.NewLevel(this);
-            
+            Game.instance.NewLevel(this);          
+        }
+
+        if (!isLevelStart && !isLevelEnd)
+        {
+            EventManager.TriggerEvent("checkpoint", gameObject);
         }
 
         if (isLevelEnd)
@@ -71,22 +74,13 @@ public class Checkpoint : MonoBehaviour {
             }
             else
             {
-                EventManager.TriggerEvent("OnLevelEnd");
                 Game.instance.LevelFinished(this);
+                Game.instance.SaveGameState(); //savign state on every checkpoint reached 
+                EventManager.TriggerEvent("OnLevelEnd");
+                return;
             }
             
         }
-
-        if (!isLevelStart && isLevelEnd)
-        {
-            //TODO: last checkpoint reached, end game.
-        }
-
-        if(!isLevelStart && !isLevelEnd)
-        {
-            EventManager.TriggerEvent("checkpoint", gameObject);
-        }
-
 
         Game.instance.SaveGameState(); //savign state on every checkpoint reached 
     }

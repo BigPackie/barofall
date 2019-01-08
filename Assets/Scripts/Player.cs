@@ -8,14 +8,13 @@ using UnityEngine;
 [System.Serializable]
 public class Player : MonoBehaviour {
 
-    public Rigidbody rb;
-    Renderer renderer;
+    public Rigidbody rb { private set;get; }
+    private new Renderer renderer;
 
     public Material opaque;
     public Material fade;
 
     public float turnSpeed = 20f;
-    Color color;
 
     public float rollTurnSpeed = 20f;
     public float fallTurnSpeed = 80f;
@@ -46,7 +45,6 @@ public class Player : MonoBehaviour {
         turnSpeed = rollTurnSpeed;
         rb = GetComponent<Rigidbody>();
         renderer = GetComponent<Renderer>();
-        color = renderer.material.color;
 
         ballDrag = rollBallDrag;
         rb.drag = ballDrag;

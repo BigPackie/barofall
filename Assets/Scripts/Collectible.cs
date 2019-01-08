@@ -6,7 +6,6 @@ public class Collectible : MonoBehaviour {
 
     public float duration = 5f;
     public string lable;
-    Rigidbody rb;
 
     int rotX;
     int rotY;
@@ -15,7 +14,6 @@ public class Collectible : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        rb = gameObject.GetComponent<Rigidbody>();
         rotX = Random.Range(-3, 3);
         rotY = Random.Range(-3, 3);
         rotZ = Random.Range(-3, 3);

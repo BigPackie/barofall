@@ -595,7 +595,7 @@ Prefab:
     - target: {fileID: 114481628086679726, guid: 2e0139de12aa91d448a2fa3f74bb518c,
         type: 2}
       propertyPath: isLevelStart
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2e0139de12aa91d448a2fa3f74bb518c, type: 2}
@@ -9315,7 +9315,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   degreesPerSecond: 180
-  rotationAxix: {x: 0, y: 1, z: 0}
+  rotationAxix: {x: 1, y: 0, z: 0}
 --- !u!1001 &1170021598
 Prefab:
   m_ObjectHideFlags: 0

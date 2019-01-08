@@ -330,6 +330,25 @@ Prefab:
       propertyPath: m_Colors.m_DisabledColor.b
       value: 0.5019608
       objectReference: {fileID: 0}
+    - target: {fileID: 114971454526959512, guid: e4346d65b7353f1448803fe831ecf131,
+        type: 2}
+      propertyPath: m_Text
+      value: "<size=50>How to play</size>\n\nFinish the levels as fast as possible.\n\nUse
+        the arrow keys or WSAD (or tilt your phone) for changing direction.\n \n<size=50>Credits</size>
+        \n\n<b>One man army:</b> Patrik Pindes\n<b>Ball model:</b> sirkitree\n<b>Collectible
+        model:</b> PTham\n<b>Menu background: </b> Created using photofunia.com ->
+        Retro Wave\n<b>Unity Asset Store:</b> Surfaces Lite, Starfield Skybox"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114971454526959512, guid: e4346d65b7353f1448803fe831ecf131,
+        type: 2}
+      propertyPath: m_FontData.m_RichText
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114971454526959512, guid: e4346d65b7353f1448803fe831ecf131,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_RemovedComponents:
     - {fileID: 114079551017516406, guid: e4346d65b7353f1448803fe831ecf131, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: e4346d65b7353f1448803fe831ecf131, type: 2}
@@ -660,7 +679,7 @@ Prefab:
     - target: {fileID: 21200000, guid: 7461a7b0cf97947fd9b9e4502fd2d07b, type: 2}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 3fc84f8b4456b934a8a549554c527a86,
+      objectReference: {fileID: 21300000, guid: 791be45b30e663a46a9a6994c51c0224,
         type: 3}
     - target: {fileID: 21200000, guid: 7461a7b0cf97947fd9b9e4502fd2d07b, type: 2}
       propertyPath: m_FlipX
@@ -720,6 +739,18 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 7461a7b0cf97947fd9b9e4502fd2d07b, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 7461a7b0cf97947fd9b9e4502fd2d07b, type: 2}
+      propertyPath: m_Size.x
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 7461a7b0cf97947fd9b9e4502fd2d07b, type: 2}
+      propertyPath: m_Size.y
+      value: 8.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 21200000, guid: 7461a7b0cf97947fd9b9e4502fd2d07b, type: 2}
+      propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

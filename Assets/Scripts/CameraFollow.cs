@@ -8,10 +8,8 @@ public class CameraFollow : MonoBehaviour
     public Transform target;
 
    // public Game.LevelPhase phase = Game.LevelPhase.PLATFORM;
-
-  
-    public Vector3 platformCameraOffset = new Vector3(0, 10f, 0);
-   
+ 
+    public Vector3 platformCameraOffset = new Vector3(0, 10f, 0); 
 
     public float angleStep = 2f;
 
@@ -22,7 +20,6 @@ public class CameraFollow : MonoBehaviour
 
     Vector3 orbitPositionOffset;
     Vector3 previousOrbitPositionOffset;
-    Vector3 previousPosition;
 
 
     // Use this for initialization
@@ -34,17 +31,6 @@ public class CameraFollow : MonoBehaviour
         {
             target = GameObject.FindWithTag("Player").transform;
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void FixedUpdate()
-    {
-   
     }
 
     private void LateUpdate()
@@ -65,7 +51,6 @@ public class CameraFollow : MonoBehaviour
 
         previousRotation = transform.rotation;
         previousOrbitPositionOffset = orbitPositionOffset;
-        previousPosition = transform.position;
 
         //the order of these opeartion is important
         //also multiplying Quaternion by Vector is a shortcut for doing a rotation on Vector.
